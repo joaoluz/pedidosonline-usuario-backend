@@ -1,0 +1,19 @@
+version: '3'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  db_postgres:
+     image: postgres
+     restart: always
+     volumes:
+       - ../pgdata:/var/lib/postgresql/data
+     environment:
+       POSTGRES_PASSWORD: 123456
+     expose:
+       - 5432
+     ports:
+       - 5432:5432
+     container_name: db_postgres
