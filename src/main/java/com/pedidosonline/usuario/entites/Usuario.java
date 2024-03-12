@@ -28,6 +28,7 @@ public class Usuario implements Serializable {
     private String email;
     private String senha;
     @Column(name = "dt_aniversario")
+    //@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING) possivel solução do stack
     private LocalDate dtAniversario;
     @Column(name = "nr_ddd")
     private Integer nrDdd;
@@ -44,13 +45,13 @@ public class Usuario implements Serializable {
     
     public Usuario(Integer idUsuario, String noUsuario, String email, String senha, String dtAniversario, Integer nrDdd, Integer nrTelefone, String nrCpf) {
 
-        DateTimeFormatter dt_aniversario_formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtAniversarioFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         this.idUsuario = idUsuario;
         this.noUsuario = noUsuario;
         this.email = email;
         this.senha = senha;
-        this.dtAniversario = LocalDate.parse(dtAniversario, dt_aniversario_formatter);
+        this.dtAniversario = LocalDate.parse(dtAniversario, dtAniversarioFormatter);
         this.nrDdd = nrDdd;
         this.nrTelefone = nrTelefone;
         this.nrCpf = nrCpf;
