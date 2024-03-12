@@ -6,27 +6,35 @@ import java.time.format.DateTimeFormatter;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 
 @Entity
-//@Table
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private Integer idUsuario;
+    @Column(name = "no_usuario")
     private String noUsuario;
     @Email
     private String email;
     private String senha;
+    @Column(name = "dt_aniversario")
     private LocalDate dtAniversario;
+    @Column(name = "nr_ddd")
     private Integer nrDdd;
+    @Column(name = "nr_telefone")
     private Integer nrTelefone;
     @CPF
+    @Column(name = "nr_cpf")
     private String nrCpf;
 
 

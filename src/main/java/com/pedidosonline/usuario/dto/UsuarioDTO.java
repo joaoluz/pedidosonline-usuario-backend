@@ -20,15 +20,15 @@ public class UsuarioDTO {
         return idUsuario;
     }
 
-    public void setId_usuario(Integer id_usuario) {
-        this.idUsuario = id_usuario;
+    public void setId_usuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNo_usuario() {
         return noUsuario;
     }
 
-    public void setNo_usuario(String no_usuario) {
-        this.noUsuario = no_usuario;
+    public void setNo_usuario(String noUsuario) {
+        this.noUsuario = noUsuario;
     }
 }
