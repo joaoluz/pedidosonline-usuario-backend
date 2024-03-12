@@ -14,146 +14,102 @@ import jakarta.validation.constraints.Email;
 
 @Entity
 //@Table
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_usuario;
-    private String no_usuario;
+    private Integer idUsuario;
+    private String noUsuario;
     @Email
     private String email;
     private String senha;
-    private LocalDate dt_aniversario;
-    private Integer nr_ddd;
-    private Integer nr_telefone;
+    private LocalDate dtAniversario;
+    private Integer nrDdd;
+    private Integer nrTelefone;
     @CPF
-    private String nr_cpf;
-    
+    private String nrCpf;
+
 
     public Usuario() {
     
     }
     
-
-    public Usuario(Integer id_usuario, String no_usuario, String email, String senha, String dt_aniversario, Integer nr_ddd, Integer nr_telefone, String nr_cpf) {
+    public Usuario(Integer idUsuario, String noUsuario, String email, String senha, String dtAniversario, Integer nrDdd, Integer nrTelefone, String nrCpf) {
 
         DateTimeFormatter dt_aniversario_formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        this.id_usuario = id_usuario;
-        this.no_usuario = no_usuario;
+        
+        this.idUsuario = idUsuario;
+        this.noUsuario = noUsuario;
         this.email = email;
         this.senha = senha;
-        this.dt_aniversario = LocalDate.parse(dt_aniversario, dt_aniversario_formatter);
-        this.nr_ddd = nr_ddd;
-        this.nr_telefone = nr_telefone;
-        this.nr_cpf = nr_cpf;
+        this.dtAniversario = LocalDate.parse(dtAniversario, dt_aniversario_formatter);
+        this.nrDdd = nrDdd;
+        this.nrTelefone = nrTelefone;
+        this.nrCpf = nrCpf;
     }
 
-
-    public Integer getId_usuario() {
-        return id_usuario;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-
-    public String getNo_usuario() {
-        return no_usuario;
+    public String getNoUsuario() {
+        return noUsuario;
     }
 
-
-    public void setNo_usuario(String no_usuario) {
-        this.no_usuario = no_usuario;
+    public void setNoUsuario(String noUsuario) {
+        this.noUsuario = noUsuario;
     }
-
 
     public String getEmail() {
         return email;
     }
 
-
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public String getSenha() {
         return senha;
     }
 
-
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
-
-    public LocalDate getDt_aniversario() {
-        return dt_aniversario;
+    public LocalDate getDtAniversario() {
+        return dtAniversario;
     }
 
-
-    public void setDt_aniversario(LocalDate dt_aniversario) {
-        this.dt_aniversario = dt_aniversario;
+    public void setDtAniversario(LocalDate dtAniversario) {
+        this.dtAniversario = dtAniversario;
     }
 
-
-    public Integer getNr_ddd() {
-        return nr_ddd;
+    public Integer getNrDdd() {
+        return nrDdd;
     }
 
-
-    public void setNr_ddd(Integer nr_ddd) {
-        this.nr_ddd = nr_ddd;
+    public void setNrDdd(Integer nrDdd) {
+        this.nrDdd = nrDdd;
     }
 
-
-    public Integer getNr_telefone() {
-        return nr_telefone;
+    public Integer getNrTelefone() {
+        return nrTelefone;
     }
 
-
-    public void setNr_telefone(Integer nr_telefone) {
-        this.nr_telefone = nr_telefone;
+    public void setNrTelefone(Integer nrTelefone) {
+        this.nrTelefone = nrTelefone;
     }
 
-
-    public String getNr_cpf() {
-        return nr_cpf;
+    public String getNrCpf() {
+        return nrCpf;
     }
 
-
-    public void setNr_cpf(String nr_cpf) {
-        this.nr_cpf = nr_cpf;
+    public void setNrCpf(String nrCpf) {
+        this.nrCpf = nrCpf;
     }
 
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id_usuario == null) ? 0 : id_usuario.hashCode());
-        return result;
-    }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Usuario other = (Usuario) obj;
-        if (id_usuario == null) {
-            if (other.id_usuario != null)
-                return false;
-        } else if (!id_usuario.equals(other.id_usuario))
-            return false;
-        return true;
-    }
-
-}
+} 

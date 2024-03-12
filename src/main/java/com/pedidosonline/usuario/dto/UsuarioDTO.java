@@ -4,31 +4,31 @@ import com.pedidosonline.usuario.entites.Usuario;
 
 public class UsuarioDTO {
 
-    private Integer id_usuario;
-    private String no_usuario;
+    private Integer idUsuario;
+    private String noUsuario;
 
     public UsuarioDTO() {
 
     }
 
     public UsuarioDTO(Usuario usuario) {
-        this.id_usuario = usuario.getId_usuario();
-        this.no_usuario = usuario.getNo_usuario();
+        this.idUsuario = usuario.getIdUsuario();
+        this.noUsuario = usuario.getNoUsuario();
     }
 
     public Integer getId_usuario() {
-        return id_usuario;
+        return idUsuario;
     }
 
     public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
+        this.idUsuario = id_usuario;
     }
 
     public String getNo_usuario() {
-        return no_usuario;
+        return noUsuario;
     }
 
     public void setNo_usuario(String no_usuario) {
-        this.no_usuario = no_usuario;
+        this.noUsuario = no_usuario;
     }
 }
