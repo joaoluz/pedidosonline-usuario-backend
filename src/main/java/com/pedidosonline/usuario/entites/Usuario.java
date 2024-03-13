@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,8 +17,10 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuario", schema = "usuario")
 public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +32,7 @@ public class Usuario implements Serializable {
     private String email;
     private String senha;
     @Column(name = "dt_aniversario")
-    //@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING) possivel solução do stack
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dtAniversario;
     @Column(name = "nr_ddd")
     private Integer nrDdd;

@@ -33,7 +33,7 @@ public class UsuarioController {
         return ResponseEntity.ok().body(lista);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{idUsuario}")
     public ResponseEntity<List<UsuarioDTO>> findById(@PathVariable Integer idUsuario) {
         List<UsuarioDTO> usr = usuarioService.findById(idUsuario);
         return ResponseEntity.ok().body(usr);
@@ -45,13 +45,13 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/{idUsuario}")
     public ResponseEntity<Usuario> update(@PathVariable Integer idUsuario, @RequestBody @Valid Usuario usuario) {
         Usuario novoUsuario = usuarioService.update(idUsuario, usuario);
         return ResponseEntity.ok().body(novoUsuario);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{idUsuario}")
     public ResponseEntity<Usuario> delete(@PathVariable Integer idUsuario) {
     usuarioService.delete(idUsuario);
     return ResponseEntity.noContent().build();
