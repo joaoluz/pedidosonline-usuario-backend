@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pedidosonline.usuario.dto.UsuarioDTO;
 import com.pedidosonline.usuario.entites.Usuario;
 import com.pedidosonline.usuario.repositories.UsuarioRepository;
+import com.pedidosonline.usuario.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -21,9 +22,9 @@ public class UsuarioService {
         return lista.stream().map(x -> new UsuarioDTO(x)).toList();
     }
 
-    public List<UsuarioDTO> findById(Integer idUsuario) {
-        Optional<Usuario> opt = usuarioRepository.findById(idUsuario);
-        return opt.stream().map(x -> new UsuarioDTO(x)).toList();
+    public UsuarioDTO findById(Integer idUsuario) {
+        Optional<Usuario> obj = usuarioRepository.findById(idUsuario);
+        return obj.map(x -> new UsuarioDTO(x)).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
     public Usuario create(Usuario usuario) {
@@ -31,7 +32,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario update(Integer idUsuario, Usuario usuario) {
+    public Usuario update(Integer idUsuario, Usuario usuario) throws Exception {
         findById(idUsuario);  //Talvez seja inútil
         usuario.setIdUsuario(idUsuario);
         return usuarioRepository.save(usuario);

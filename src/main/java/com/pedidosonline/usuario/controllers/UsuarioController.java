@@ -34,8 +34,8 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/{idUsuario}")
-    public ResponseEntity<List<UsuarioDTO>> findById(@PathVariable Integer idUsuario) {
-        List<UsuarioDTO> usr = usuarioService.findById(idUsuario);
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer idUsuario) {
+        UsuarioDTO usr = usuarioService.findById(idUsuario);
         return ResponseEntity.ok().body(usr);
     }
 
@@ -46,7 +46,7 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/{idUsuario}")
-    public ResponseEntity<Usuario> update(@PathVariable Integer idUsuario, @RequestBody @Valid Usuario usuario) {
+    public ResponseEntity<Usuario> update(@PathVariable Integer idUsuario, @RequestBody @Valid Usuario usuario) throws Exception {
         Usuario novoUsuario = usuarioService.update(idUsuario, usuario);
         return ResponseEntity.ok().body(novoUsuario);
     }
