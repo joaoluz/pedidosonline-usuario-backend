@@ -24,7 +24,7 @@ public class UsuarioService {
 
     public UsuarioDTO findById(Integer idUsuario) {
         Optional<Usuario> obj = usuarioRepository.findById(idUsuario);
-        return obj.map(x -> new UsuarioDTO(x)).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+        return obj.map(x -> new UsuarioDTO(x)).orElseThrow(() -> new ObjectNotFoundException("Id não encontrado " + idUsuario));
     }
 
     public Usuario create(Usuario usuario) {

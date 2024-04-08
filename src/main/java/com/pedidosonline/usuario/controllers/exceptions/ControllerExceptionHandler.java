@@ -21,31 +21,49 @@ import jakarta.validation.ValidatorFactory;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<StandardError> objectNotFound(NoResourceFoundException ex, HttpServletRequest request) {
-        StandardError error = new StandardError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), "Url não Encontrado",
-                request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-    }
-
     @ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException ex, HttpServletRequest request) {
-        StandardError error = new StandardError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), ex.getMessage(),
-                request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+
+        StandardError erro = new StandardError();
+
+        erro.setTimesTamp(LocalDateTime.now());
+        erro.setStatus(HttpStatus.NOT_FOUND.value());
+        erro.setError("Objeto não Encontrado");
+        erro.setMessage(ex.getMessage());
+        erro.setPath(request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    // @ExceptionHandler(MethodArgumentNotValidException.class)
-    // public ResponseEntity<StandardError> objectNotFound(MethodArgumentNotValidException ex,
-    //         HttpServletRequest request) {
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<StandardError> rumtimeError(RuntimeException ex, HttpServletRequest request) {
 
-    //     System.out.println(ex.getGlobalError().getDefaultMessage());
+        StandardError erro = new StandardError();
 
-    //     StandardError error = new StandardError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(),
-    //             request.getRequestURI());
-    //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-    // }
+        erro.setTimesTamp(LocalDateTime.now());
+        erro.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        erro.setError("Url não Encontrado");
+        erro.setMessage(ex.getMessage());
+        erro.setPath(request.getRequestURI());
 
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<StandardError> noResourceError(NoResourceFoundException ex, HttpServletRequest request) {
+
+        StandardError erro = new StandardError();
+
+        erro.setTimesTamp(LocalDateTime.now());
+        erro.setStatus(HttpStatus.NOT_FOUND.value());
+        erro.setError("Url não Encontrado");
+        erro.setMessage(ex.getMessage());
+        erro.setPath(request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+    }
+
+    
     public void validation() {
 
         Usuario usuario = new Usuario();
