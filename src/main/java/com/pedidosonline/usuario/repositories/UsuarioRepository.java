@@ -8,8 +8,8 @@ import com.pedidosonline.usuario.entites.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-    Optional<Usuario> findByEmail(String email);
+    Optional<Usuario> findByEmail(String email); // Busca o email no banco de dados e joga para validaçãoDeEmailECpf()
 
-    Optional<Usuario> findByNrCpf(String nrCpf);
+    Optional<Usuario> findByNrCpf(String nrCpf); // Busca o cpf no banco de dados e joga para validaçãoDeEmailECpf()
 
 }

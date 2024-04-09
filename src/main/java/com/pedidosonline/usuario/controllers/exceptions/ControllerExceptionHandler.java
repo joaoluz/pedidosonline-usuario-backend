@@ -21,7 +21,7 @@ import jakarta.validation.ValidatorFactory;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(ObjectNotFoundException.class)
+    @ExceptionHandler(ObjectNotFoundException.class)   //caso o objeto não seja encontrado
     public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException ex, HttpServletRequest request) {
 
         StandardError erro = new StandardError();
@@ -34,7 +34,7 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    @ExceptionHandler(DataIntegratyViolationException.class)  //verifica se o email e cpf não repetidos
+    @ExceptionHandler(DataIntegratyViolationException.class)  // caso o e-mail e cpf sejam repetidos
     public ResponseEntity<StandardError> dataIntegratyViolation(DataIntegratyViolationException ex, HttpServletRequest request) {
 
         StandardError erro = new StandardError();
@@ -48,7 +48,7 @@ public class ControllerExceptionHandler {
     }
 
 
-    //Validação de dados
+    //Para mostrar os erros de validação de dados no terminal
     public void validation() {
 
         Usuario usuario = new Usuario();

@@ -29,8 +29,7 @@ public class UsuarioService {
     }
 
     public Usuario create(Usuario usuario) {
-        findByEmail(usuario);
-        findByNrCpf(usuario);
+        validaçãoDeEmailECpf(usuario);   // <-- Dispara a validação
         usuario.setIdUsuario(null);
         return usuarioRepository.save(usuario);
     }
@@ -38,8 +37,7 @@ public class UsuarioService {
     public Usuario update(Integer idUsuario, Usuario usuario) throws Exception {
         findById(idUsuario);
         usuario.setIdUsuario(idUsuario);
-        findByEmail(usuario);
-        findByNrCpf(usuario);
+        validaçãoDeEmailECpf(usuario);   // <-- Dispara a validação 
         return usuarioRepository.save(usuario);
     }
 
@@ -48,18 +46,15 @@ public class UsuarioService {
         usuarioRepository.deleteById(idUsuario);
     }
 
-    //erro se o e-mail já for cadastrado
-    private void findByEmail(Usuario obj) {
-        Optional<Usuario> usr1 = usuarioRepository.findByEmail(obj.getEmail());
-        if (usr1.isPresent() && !usr1.get().getIdUsuario().equals(obj.getIdUsuario())) {
+    private void validaçãoDeEmailECpf(Usuario obj) {   //verifica se o email e cpf não repetidos
+        Optional<Usuario> existingUserByEmail = usuarioRepository.findByEmail(obj.getEmail());
+        Optional<Usuario> existingUserByCpf = usuarioRepository.findByNrCpf(obj.getNrCpf());
+    
+        if (existingUserByEmail.isPresent() && !existingUserByEmail.get().getIdUsuario().equals(obj.getIdUsuario())) {
             throw new DataIntegratyViolationException("E-mail já cadastrado no sistema");
         }
-    }
-
-    //erro se o CPF já for cadastrado
-    private void findByNrCpf(Usuario obj) {
-        Optional<Usuario> usr2 = usuarioRepository.findByNrCpf(obj.getNrCpf());
-        if (usr2.isPresent() && !usr2.get().getIdUsuario().equals(obj.getIdUsuario())) {
+    
+        if (existingUserByCpf.isPresent() && !existingUserByCpf.get().getIdUsuario().equals(obj.getIdUsuario())) {
             throw new DataIntegratyViolationException("CPF já cadastrado no sistema");
         }
     }
