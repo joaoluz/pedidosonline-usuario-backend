@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.pedidosonline.usuario.entites.Usuario;
 import com.pedidosonline.usuario.services.exceptions.DataIntegratyViolationException;
@@ -48,18 +47,6 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
-    @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<StandardError> noResourceError(NoResourceFoundException ex, HttpServletRequest request) {
-
-        StandardError erro = new StandardError();
-
-        erro.setTimesTamp(LocalDateTime.now());
-        erro.setStatus(HttpStatus.NOT_FOUND.value());
-        erro.setError("Url não Encontrado");
-        erro.setPath(request.getRequestURI());
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
-    }
 
     //Validação de dados
     public void validation() {

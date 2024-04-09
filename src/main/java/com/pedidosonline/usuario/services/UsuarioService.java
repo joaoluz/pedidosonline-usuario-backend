@@ -38,6 +38,8 @@ public class UsuarioService {
     public Usuario update(Integer idUsuario, Usuario usuario) throws Exception {
         findById(idUsuario);
         usuario.setIdUsuario(idUsuario);
+        findByEmail(usuario);
+        findByNrCpf(usuario);
         return usuarioRepository.save(usuario);
     }
 
@@ -48,16 +50,16 @@ public class UsuarioService {
 
     //erro se o e-mail já for cadastrado
     private void findByEmail(Usuario obj) {
-        Optional<Usuario> usr = usuarioRepository.findByEmail(obj.getEmail());
-        if (usr.isPresent()) {
+        Optional<Usuario> usr1 = usuarioRepository.findByEmail(obj.getEmail());
+        if (usr1.isPresent() && !usr1.get().getIdUsuario().equals(obj.getIdUsuario())) {
             throw new DataIntegratyViolationException("E-mail já cadastrado no sistema");
         }
     }
 
     //erro se o CPF já for cadastrado
     private void findByNrCpf(Usuario obj) {
-        Optional<Usuario> usr = usuarioRepository.findByNrCpf(obj.getNrCpf());
-        if (usr.isPresent()) {
+        Optional<Usuario> usr2 = usuarioRepository.findByNrCpf(obj.getNrCpf());
+        if (usr2.isPresent() && !usr2.get().getIdUsuario().equals(obj.getIdUsuario())) {
             throw new DataIntegratyViolationException("CPF já cadastrado no sistema");
         }
     }
