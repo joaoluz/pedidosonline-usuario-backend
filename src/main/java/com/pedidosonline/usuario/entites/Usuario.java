@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
 
     @Email(message = "Email incorreto")
     @NotEmpty(message = "Campo E-MAIL obrigatório")
-    //@Column(unique = true) descomentar após os testes, incluir unique no atributo cpf
+    @Column(unique = true)
     private String email;
 
     @NotEmpty(message = "Campo SENHA obrigatório")
@@ -62,7 +62,7 @@ public class Usuario implements Serializable {
 
     @CPF(message = "CPF incorreto")
     @NotEmpty(message = "Campo CPF obrigatório")
-    @Column(name = "nr_cpf")
+    @Column(name = "nr_cpf", unique = true)
     private String nrCpf;
 
 

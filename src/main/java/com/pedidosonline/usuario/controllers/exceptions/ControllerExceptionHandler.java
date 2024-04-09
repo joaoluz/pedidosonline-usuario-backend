@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.pedidosonline.usuario.entites.Usuario;
+import com.pedidosonline.usuario.services.exceptions.DataIntegratyViolationException;
 import com.pedidosonline.usuario.services.exceptions.ObjectNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,25 +29,23 @@ public class ControllerExceptionHandler {
 
         erro.setTimesTamp(LocalDateTime.now());
         erro.setStatus(HttpStatus.NOT_FOUND.value());
-        erro.setError("Objeto não Encontrado");
-        erro.setMessage(ex.getMessage());
+        erro.setError(ex.getMessage());
         erro.setPath(request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<StandardError> rumtimeError(RuntimeException ex, HttpServletRequest request) {
+    @ExceptionHandler(DataIntegratyViolationException.class)  //verifica se o email e cpf não repetidos
+    public ResponseEntity<StandardError> dataIntegratyViolation(DataIntegratyViolationException ex, HttpServletRequest request) {
 
         StandardError erro = new StandardError();
 
         erro.setTimesTamp(LocalDateTime.now());
-        erro.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        erro.setError("Url não Encontrado");
-        erro.setMessage(ex.getMessage());
+        erro.setStatus(HttpStatus.BAD_REQUEST.value());
+        erro.setError(ex.getMessage());
         erro.setPath(request.getRequestURI());
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
@@ -57,13 +56,12 @@ public class ControllerExceptionHandler {
         erro.setTimesTamp(LocalDateTime.now());
         erro.setStatus(HttpStatus.NOT_FOUND.value());
         erro.setError("Url não Encontrado");
-        erro.setMessage(ex.getMessage());
         erro.setPath(request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    
+    //Validação de dados
     public void validation() {
 
         Usuario usuario = new Usuario();
