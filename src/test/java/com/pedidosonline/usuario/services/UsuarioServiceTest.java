@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.h2.engine.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -49,7 +51,16 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    void testFindAll() {
+    void buscaTodosERetornaUmaListaDeUsuarios() {
+
+        when(repository.findAll()).thenReturn(List.of(usuario));
+
+        List<UsuarioDTO> response = service.findAll();
+
+        assertNotNull(response);
+        assertEquals(1, response.size());
+        assertEquals(UsuarioDTO.class, response.get(0).getClass());
+        assertEquals(1, response.get(0).getId_usuario());
 
     }
 
