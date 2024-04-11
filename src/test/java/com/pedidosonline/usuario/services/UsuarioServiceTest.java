@@ -54,9 +54,7 @@ public class UsuarioServiceTest {
         assertEquals(Usuario.class, response.getClass());
         assertEquals(1, response.getIdUsuario());
         assertEquals("Gil", response.getNoUsuario());
-
     }
-
     @Test
     void createRetornaUmDataIntegratyViolationExceptionDeEmail() {
 
@@ -85,10 +83,13 @@ public class UsuarioServiceTest {
     }
 
 
+
     @Test
     void testDelete() {
 
     }
+
+
 
     @Test
     void findAllRetornaUmaListaDeUsuarios() {
@@ -101,8 +102,9 @@ public class UsuarioServiceTest {
         assertEquals(1, response.size());
         assertEquals(UsuarioDTO.class, response.get(0).getClass());
         assertEquals(1, response.get(0).getId_usuario());
-
     }
+
+
 
     @Test
     void findByIdRetornaUmaInstanciaDeUsuario() {
@@ -115,7 +117,6 @@ public class UsuarioServiceTest {
         assertEquals(UsuarioDTO.class, response.getClass());
         assertEquals(1, response.getId_usuario());
         assertEquals("Gil", response.getNo_usuario());
-
     }
     @Test
     void findByIdRetornaUmObjectNotFoundException() {
@@ -130,11 +131,49 @@ public class UsuarioServiceTest {
         }
     }
 
-    @Test
-    void testUpdate() {
 
+
+    @Test
+    void updateRetornaUmUsuarioCriadoComSucesso() {
+
+        when(repository.save(any())).thenReturn(usuario);
+
+        Usuario response = service.create(usuario);
+
+        assertNotNull(response);
+        assertEquals(Usuario.class, response.getClass());
+        assertEquals(1, response.getIdUsuario());
+        assertEquals("Gil", response.getNoUsuario());
+    }
+    @Test
+    void updateRetornaUmDataIntegratyViolationExceptionDeEmail() {
+
+        when(repository.findByEmail(anyString())).thenReturn(optionalUsuario);
+
+        try {
+            optionalUsuario.get().setIdUsuario(2);   // <-- Simula um Id diferente
+            service.create(usuario);
+        } catch (Exception e) {
+            assertEquals(DataIntegratyViolationException.class, e.getClass());
+            assertEquals("E-mail já cadastrado no sistema", e.getMessage());
+        }
+    }
+    @Test
+    void updateRetornaUmDataIntegratyViolationExceptionDeCpf() {
+
+        when(repository.findByNrCpf(anyString())).thenReturn(optionalUsuario);
+
+        try {
+            optionalUsuario.get().setIdUsuario(2);   // <-- Simula um Id diferente
+            service.create(usuario);
+        } catch (Exception e) {
+            assertEquals(DataIntegratyViolationException.class, e.getClass());
+            assertEquals("CPF já cadastrado no sistema", e.getMessage());
+        }
     }
 
+
+    
     private void startUsuario() {
         usuario = new Usuario(1, "Gil", "gil@gmail.com", "gil123", "27/10/1996", 61, 983480099, "05571541113");
         usuarioDTO = new UsuarioDTO();
