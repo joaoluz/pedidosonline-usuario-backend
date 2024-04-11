@@ -2,10 +2,12 @@ package com.pedidosonline.usuario.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -34,7 +36,6 @@ public class UsuarioServiceTest {
     private UsuarioRepository repository;
 
     private Usuario usuario;
-    private UsuarioDTO usuarioDTO;
     private Optional<Usuario> optionalUsuario;
 
     @BeforeEach     //  <-- Roda esse método antes de qualque coisa 
@@ -85,8 +86,23 @@ public class UsuarioServiceTest {
 
 
     @Test
-    void testDelete() {
+    void deleteComSucesso() {
+        when(repository.findById(anyInt())).thenReturn(optionalUsuario);
+        doNothing().when(repository).deleteById(anyInt());
+        service.delete(1);
+        verify(repository, times(1)).deleteById(anyInt());
+    }
+    @Test
+    void deleteRetornaUmObjectNotFoundException() {
 
+        when(repository.findById(anyInt())).thenThrow(new ObjectNotFoundException("Objeto não encontrado"));
+
+        try {
+            service.delete(1);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals("Objeto não encontrado", ex.getMessage());
+        }
     }
 
 
@@ -173,10 +189,9 @@ public class UsuarioServiceTest {
     }
 
 
-    
+
     private void startUsuario() {
         usuario = new Usuario(1, "Gil", "gil@gmail.com", "gil123", "27/10/1996", 61, 983480099, "05571541113");
-        usuarioDTO = new UsuarioDTO();
         optionalUsuario = Optional.of(new Usuario(1, "Gil", "gil@gmail.com", "gil123", "27/10/1996", 61, 983480099, "05571541113"));
 
     }
