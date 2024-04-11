@@ -29,15 +29,14 @@ public class UsuarioService {
     }
 
     public Usuario create(Usuario usuario) {
-        validaçãoDeEmailECpf(usuario);   // <-- Dispara a validação
-        usuario.setIdUsuario(null);
+        validacaoDeEmailECpf(usuario);   // <-- Dispara a validação
         return usuarioRepository.save(usuario);
     }
 
     public Usuario update(Integer idUsuario, Usuario usuario) throws Exception {
         findById(idUsuario);
         usuario.setIdUsuario(idUsuario);
-        validaçãoDeEmailECpf(usuario);   // <-- Dispara a validação 
+        validacaoDeEmailECpf(usuario);   // <-- Dispara a validação 
         return usuarioRepository.save(usuario);
     }
 
@@ -46,15 +45,15 @@ public class UsuarioService {
         usuarioRepository.deleteById(idUsuario);
     }
 
-    private void validaçãoDeEmailECpf(Usuario obj) {   //verifica se o email e cpf não repetidos
-        Optional<Usuario> existingUserByEmail = usuarioRepository.findByEmail(obj.getEmail());
-        Optional<Usuario> existingUserByCpf = usuarioRepository.findByNrCpf(obj.getNrCpf());
+    private void validacaoDeEmailECpf(Usuario obj) {   //verifica se o email e cpf não repetidos
+        Optional<Usuario> validacaoEmail = usuarioRepository.findByEmail(obj.getEmail());
+        Optional<Usuario> validacaoCpf = usuarioRepository.findByNrCpf(obj.getNrCpf());
     
-        if (existingUserByEmail.isPresent() && !existingUserByEmail.get().getIdUsuario().equals(obj.getIdUsuario())) {
+        if (validacaoEmail.isPresent() && !validacaoEmail.get().getIdUsuario().equals(obj.getIdUsuario())) {
             throw new DataIntegratyViolationException("E-mail já cadastrado no sistema");
         }
     
-        if (existingUserByCpf.isPresent() && !existingUserByCpf.get().getIdUsuario().equals(obj.getIdUsuario())) {
+        if (validacaoCpf.isPresent() && !validacaoCpf.get().getIdUsuario().equals(obj.getIdUsuario())) {
             throw new DataIntegratyViolationException("CPF já cadastrado no sistema");
         }
     }

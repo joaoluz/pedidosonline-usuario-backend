@@ -2,13 +2,15 @@ package com.pedidosonline.usuario.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.h2.engine.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.pedidosonline.usuario.dto.UsuarioDTO;
 import com.pedidosonline.usuario.entites.Usuario;
 import com.pedidosonline.usuario.repositories.UsuarioRepository;
+import com.pedidosonline.usuario.services.exceptions.DataIntegratyViolationException;
 import com.pedidosonline.usuario.services.exceptions.ObjectNotFoundException;
 
 @SpringBootTest
@@ -41,9 +44,46 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    void testCreate() {
+    void createRetornaUmUsuarioCriadoComSucesso() {
+
+        when(repository.save(any())).thenReturn(usuario);
+
+        Usuario response = service.create(usuario);
+
+        assertNotNull(response);
+        assertEquals(Usuario.class, response.getClass());
+        assertEquals(1, response.getIdUsuario());
+        assertEquals("Gil", response.getNoUsuario());
 
     }
+
+    @Test
+    void createRetornaUmDataIntegratyViolationExceptionDeEmail() {
+
+        when(repository.findByEmail(anyString())).thenReturn(optionalUsuario);
+
+        try {
+            optionalUsuario.get().setIdUsuario(2);   // <-- Simula um Id diferente
+            service.create(usuario);
+        } catch (Exception e) {
+            assertEquals(DataIntegratyViolationException.class, e.getClass());
+            assertEquals("E-mail já cadastrado no sistema", e.getMessage());
+        }
+    }
+    @Test
+    void createRetornaUmDataIntegratyViolationExceptionDeCpf() {
+
+        when(repository.findByNrCpf(anyString())).thenReturn(optionalUsuario);
+
+        try {
+            optionalUsuario.get().setIdUsuario(2);   // <-- Simula um Id diferente
+            service.create(usuario);
+        } catch (Exception e) {
+            assertEquals(DataIntegratyViolationException.class, e.getClass());
+            assertEquals("CPF já cadastrado no sistema", e.getMessage());
+        }
+    }
+
 
     @Test
     void testDelete() {
@@ -51,7 +91,7 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    void buscaTodosERetornaUmaListaDeUsuarios() {
+    void findAllRetornaUmaListaDeUsuarios() {
 
         when(repository.findAll()).thenReturn(List.of(usuario));
 
@@ -65,7 +105,7 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    void buscaPorIdERetornaUmaInstanciaDeUsuario() {
+    void findByIdRetornaUmaInstanciaDeUsuario() {
 
         when(repository.findById(anyInt())).thenReturn(optionalUsuario);
 
@@ -78,7 +118,7 @@ public class UsuarioServiceTest {
 
     }
     @Test
-    void buscaPorIdERetornaUmObjectNotFoundException() {
+    void findByIdRetornaUmObjectNotFoundException() {
 
         when(repository.findById(anyInt())).thenThrow(new ObjectNotFoundException("Objeto não encontrado"));
 
