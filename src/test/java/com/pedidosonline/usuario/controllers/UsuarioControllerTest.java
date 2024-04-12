@@ -5,12 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.pedidosonline.usuario.dto.UsuarioDTO;
@@ -46,7 +49,18 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    void testFindAll() {
+    void findAllRetornaUmaListaDeUsuarioDTO() {
+        when(service.findAll()).thenReturn(List.of(usuarioDTO));
+
+        ResponseEntity<List<UsuarioDTO>> response = controller.findAll();
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(UsuarioDTO.class, response.getBody().get(0).getClass());
+
+        assertEquals(1, response.getBody().get(0).getId_usuario());
 
     }
 
