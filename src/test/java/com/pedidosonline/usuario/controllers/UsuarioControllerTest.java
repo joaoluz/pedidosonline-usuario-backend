@@ -2,6 +2,7 @@ package com.pedidosonline.usuario.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
@@ -39,8 +40,13 @@ public class UsuarioControllerTest {
         startUsuario();
     }
     @Test
-    void testCreate() {
+    void createERetornaCriadoComSucesso() {
+        when(service.create(any())).thenReturn(usuario);
 
+        ResponseEntity<Usuario> response = controller.create(usuario);
+
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     @Test
