@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -50,8 +51,14 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    void testDelete() {
+    void deleteRetornaComSucesso() {
+        doNothing().when(service).delete(anyInt());
 
+        ResponseEntity<Usuario> response = controller.delete(1);
+
+        assertNotNull(response);
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
     @Test
