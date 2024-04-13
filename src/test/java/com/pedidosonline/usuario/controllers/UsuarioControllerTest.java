@@ -88,8 +88,19 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    void testUpdate() {
+    void updateRetornaComSucesso() throws Exception {
 
+        when(service.update(usuario)).thenReturn(usuario);
+
+        ResponseEntity<Usuario> response = controller.update(1, usuario);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(Usuario.class, response.getBody().getClass());
+
+        assertEquals(1, response.getBody().getIdUsuario());
     }
 
     private void startUsuario() {
