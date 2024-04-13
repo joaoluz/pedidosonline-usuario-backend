@@ -46,7 +46,7 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/{idUsuario}")
-    public ResponseEntity<Usuario> update(@PathVariable Integer idUsuario, @RequestBody @Valid Usuario usuario) throws Exception {
+    public ResponseEntity<Usuario> update(@PathVariable Integer idUsuario, @RequestBody @Valid Usuario usuario) {
         usuario.setIdUsuario(idUsuario);
         Usuario novoUsuario = usuarioService.update(usuario);
         return ResponseEntity.ok().body(novoUsuario);

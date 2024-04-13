@@ -73,7 +73,7 @@ public class UsuarioControllerTest {
         assertEquals(ResponseEntity.class, response.getClass());
         assertEquals(UsuarioDTO.class, response.getBody().get(0).getClass());
 
-        assertEquals(1, response.getBody().get(0).getId_usuario());
+        assertEquals(1, response.getBody().get(0).getIdUsuario());
 
     }
 
@@ -89,13 +89,13 @@ public class UsuarioControllerTest {
         assertEquals(ResponseEntity.class, response.getClass());
         assertEquals(UsuarioDTO.class, response.getBody().getClass());
 
-        assertEquals(1, response.getBody().getId_usuario());
-        assertEquals("Gil", response.getBody().getNo_usuario());
+        assertEquals(1, response.getBody().getIdUsuario());
+        assertEquals("Gil", response.getBody().getNoUsuario());
 
     }
 
     @Test
-    void updateRetornaComSucesso() throws Exception {
+    void updateRetornaComSucesso() {
 
         when(service.update(usuario)).thenReturn(usuario);
 

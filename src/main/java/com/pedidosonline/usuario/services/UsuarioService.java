@@ -33,7 +33,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario update(Usuario usuario) throws Exception {
+    public Usuario update(Usuario usuario) {
         validacaoDeEmailECpf(usuario);   // <-- Dispara a validação 
         return usuarioRepository.save(usuario);
     }

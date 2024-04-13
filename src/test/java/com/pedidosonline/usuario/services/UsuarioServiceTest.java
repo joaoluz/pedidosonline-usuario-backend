@@ -117,7 +117,7 @@ public class UsuarioServiceTest {
         assertNotNull(response);
         assertEquals(1, response.size());
         assertEquals(UsuarioDTO.class, response.get(0).getClass());
-        assertEquals(1, response.get(0).getId_usuario());
+        assertEquals(1, response.get(0).getIdUsuario());
     }
 
 
@@ -131,8 +131,8 @@ public class UsuarioServiceTest {
 
         assertNotNull(response);
         assertEquals(UsuarioDTO.class, response.getClass());
-        assertEquals(1, response.getId_usuario());
-        assertEquals("Gil", response.getNo_usuario());
+        assertEquals(1, response.getIdUsuario());
+        assertEquals("Gil", response.getNoUsuario());
     }
     @Test
     void findByIdRetornaUmObjectNotFoundException() {

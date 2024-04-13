@@ -16,19 +16,19 @@ public class UsuarioDTO {
         this.noUsuario = usuario.getNoUsuario();
     }
 
-    public Integer getId_usuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setId_usuario(Integer idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public String getNo_usuario() {
+    public String getNoUsuario() {
         return noUsuario;
     }
 
-    public void setNo_usuario(String noUsuario) {
+    public void setNoUsuario(String noUsuario) {
         this.noUsuario = noUsuario;
     }
 }
