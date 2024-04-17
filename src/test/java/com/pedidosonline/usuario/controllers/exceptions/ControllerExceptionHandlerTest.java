@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import com.pedidosonline.usuario.services.exceptions.DataIntegratyViolationException;
 import com.pedidosonline.usuario.services.exceptions.ObjectNotFoundException;
 
 @SpringBootTest
@@ -26,8 +27,17 @@ public class ControllerExceptionHandlerTest {
     }
 
     @Test
-    void testDataIntegratyViolation() {
+    void dataIntegratyViolation() {
 
+        ResponseEntity<StandardError> response = exceptionHandler.dataIntegratyViolation(new DataIntegratyViolationException("E-mail já cadastrado"), new MockHttpServletRequest());
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(StandardError.class, response.getBody().getClass());
+        assertEquals("E-mail já cadastrado", response.getBody().getError());
+        assertEquals(400, response.getBody().getStatus());
     }
 
     @Test
