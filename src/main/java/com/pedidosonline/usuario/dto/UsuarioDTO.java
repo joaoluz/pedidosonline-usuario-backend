@@ -15,6 +15,7 @@ public class UsuarioDTO {
         this.idUsuario = usuario.getIdUsuario();
         this.noUsuario = usuario.getNoUsuario();
     }
+    
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -31,4 +32,5 @@ public class UsuarioDTO {
     public void setNoUsuario(String noUsuario) {
         this.noUsuario = noUsuario;
     }
+
 }

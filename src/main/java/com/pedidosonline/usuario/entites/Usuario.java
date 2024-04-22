@@ -3,6 +3,7 @@ package com.pedidosonline.usuario.entites;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
@@ -14,6 +15,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -65,6 +67,11 @@ public class Usuario implements Serializable {
     @Column(name = "nr_cpf", unique = true)
     private String nrCpf;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<EnderecoUsuario> enderecos;
+
+    // @ManyToMany(mappedBy = "endereco")
+    // private Endereco endereco;
 
     public Usuario() {
     
@@ -147,5 +154,6 @@ public class Usuario implements Serializable {
     public void setNrCpf(String nrCpf) {
         this.nrCpf = nrCpf;
     }
+
 
 } 

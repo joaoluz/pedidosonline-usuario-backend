@@ -1,10 +1,13 @@
 package com.pedidosonline.usuario.entites;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -33,7 +36,10 @@ public class Endereco {
     @NotEmpty(message = "O Número não pode ser vazio")
     private String numero;
 
-    public Endereco(){
+    @OneToMany(mappedBy = "endereco")
+    private List<EnderecoUsuario> usuarios;
+
+    public Endereco() {
 
     }
 

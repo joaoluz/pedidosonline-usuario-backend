@@ -7,6 +7,9 @@ public class EnderecoDTO {
     private Integer idEndereco;
     private String cep;
 
+    public EnderecoDTO() {
+        
+    }
     
     public EnderecoDTO(Endereco endereco) {
         this.idEndereco = getIdEndereco();
