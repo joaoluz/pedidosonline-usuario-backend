@@ -2,7 +2,9 @@ package com.pedidosonline.usuario.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +17,27 @@ import com.pedidosonline.usuario.services.exceptions.ObjectNotFoundException;
 @Service
 public class UsuarioService {
 
+    // @Autowired
+    // private EnderecoUsuarioRepository enderecoUsuarioRepository;
+
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public List<UsuarioDTO> findAll() {
-        List<Usuario> lista = usuarioRepository.findAll();
-        return lista.stream().map(x -> new UsuarioDTO(x)).toList();
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return usuarios.stream().map(usuario -> modelMapper.map(usuario, UsuarioDTO.class)).collect(Collectors.toList());
     }
 
     public UsuarioDTO findById(Integer idUsuario) {
         Optional<Usuario> obj = usuarioRepository.findById(idUsuario);
-        return obj.map(x -> new UsuarioDTO(x)).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+        //obj.get().setEnderecos(enderecoUsuarioRepository.findAllByUsuario(idUsuario));
+        return obj.map(usuario -> modelMapper.map(usuario, UsuarioDTO.class)).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+        
     }
+    
 
     public Usuario create(Usuario usuario) {
         validacaoDeEmailECpf(usuario);   // <-- Dispara a validação
