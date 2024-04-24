@@ -12,10 +12,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -67,11 +70,15 @@ public class Usuario implements Serializable {
     @Column(name = "nr_cpf", unique = true)
     private String nrCpf;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<EnderecoUsuario> enderecos;
+    // @ManyToOne(fetch = FetchType.EAGER)
+    // @Transient
+    // private List<Endereco> enderecos;
 
-    // @ManyToMany(mappedBy = "endereco")
-    // private Endereco endereco;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "endereco_usuario",schema= "usuario", 
+                joinColumns = @JoinColumn(name = "id_usuario"), 
+                inverseJoinColumns = @JoinColumn(name = "id_endereco"))
+    private List<Endereco> enderecos;
 
     public Usuario() {
     
@@ -153,6 +160,14 @@ public class Usuario implements Serializable {
 
     public void setNrCpf(String nrCpf) {
         this.nrCpf = nrCpf;
+    }
+    
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> list) {
+        this.enderecos = list;
     }
 
 

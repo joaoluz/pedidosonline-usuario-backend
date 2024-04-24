@@ -4,10 +4,11 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -22,7 +23,7 @@ public class Endereco {
     private Integer idEndereco;
 
     @NotEmpty(message = "O Lagradouro não pode ser vazio")
-    private String lagradouro;
+    private String logradouro;
 
     @NotEmpty(message = "O CEP não ser vazio")
     @Size(min = 8, max = 8, message = "O CEP deve conter 8 dígitos")
@@ -36,17 +37,18 @@ public class Endereco {
     @NotEmpty(message = "O Número não pode ser vazio")
     private String numero;
 
-    @OneToMany(mappedBy = "endereco")
-    private List<EnderecoUsuario> usuarios;
+    @ManyToMany(mappedBy = "enderecos", fetch = FetchType.EAGER)
+    private List<Usuario> usuarios;
+
 
     public Endereco() {
 
     }
 
-    public Endereco(Integer idEndereco, String lagradouro, String cep, String bairro, String complemento, String numero) {
+    public Endereco(Integer idEndereco, String logradouro, String cep, String bairro, String complemento, String numero) {
 
         this.idEndereco = idEndereco;
-        this.lagradouro = lagradouro;
+        this.logradouro = logradouro;
         this.cep = cep;
         this.bairro = bairro;
         this.complemento = complemento;
@@ -60,13 +62,12 @@ public class Endereco {
     public void setIdEndereco(Integer idEndereco) {
         this.idEndereco = idEndereco;
     }
-    
-
-    public String getLagradouro() {
-        return lagradouro;
+    public String getLogradouro() {
+        return logradouro;
     }
-    public void setLagradouro(String lagradouro) {
-        this.lagradouro = lagradouro;
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
 
