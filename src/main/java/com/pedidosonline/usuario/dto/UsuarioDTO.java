@@ -1,21 +1,14 @@
 package com.pedidosonline.usuario.dto;
 
-import com.pedidosonline.usuario.entites.Usuario;
+import java.util.List;
 
 public class UsuarioDTO {
 
     private Integer idUsuario;
     private String noUsuario;
 
-    public UsuarioDTO() {
+    private List<EnderecoDTO> enderecos;
 
-    }
-
-    public UsuarioDTO(Usuario usuario) {
-        this.idUsuario = usuario.getIdUsuario();
-        this.noUsuario = usuario.getNoUsuario();
-    }
-    
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -33,4 +26,13 @@ public class UsuarioDTO {
         this.noUsuario = noUsuario;
     }
 
+    public List<EnderecoDTO> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecoDTO(List<EnderecoDTO> enderecos) {
+        this.enderecos = enderecos;
+    }
 }
+
+
