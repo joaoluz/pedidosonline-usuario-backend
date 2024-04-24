@@ -17,9 +17,6 @@ import com.pedidosonline.usuario.services.exceptions.ObjectNotFoundException;
 @Service
 public class UsuarioService {
 
-    // @Autowired
-    // private EnderecoUsuarioRepository enderecoUsuarioRepository;
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -33,7 +30,6 @@ public class UsuarioService {
 
     public UsuarioDTO findById(Integer idUsuario) {
         Optional<Usuario> obj = usuarioRepository.findById(idUsuario);
-        //obj.get().setEnderecos(enderecoUsuarioRepository.findAllByUsuario(idUsuario));
         return obj.map(usuario -> modelMapper.map(usuario, UsuarioDTO.class)).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
         
     }

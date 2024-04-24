@@ -7,6 +7,14 @@
 // import jakarta.persistence.JoinColumn;
 // import jakarta.persistence.ManyToMany;
 // import jakarta.persistence.Table;
+// import lombok.AllArgsConstructor;
+// import lombok.Data;
+// import lombok.NoArgsConstructor;
+
+// @Data
+// @NoArgsConstructor
+// @AllArgsConstructor
+
 
 // @Entity
 // //@Embeddable
@@ -24,32 +32,5 @@
 //     @ManyToMany
 //     @JoinColumn(name = "id_endereco")
 //     private Endereco endereco;
-
-    
-
-//     public EnderecoUsuario() {
-
-//     }
-
-//     public EnderecoUsuario(Usuario usuario, Endereco endereco) {
-//         this.usuario = usuario;
-//         this.endereco = endereco;
-//     }
-
-//     public Usuario getUsuario() {
-//         return usuario;
-//     }
-
-//     public void setUsuario(Usuario usuario) {
-//         this.usuario = usuario;
-//     }
-
-//     public Endereco getEndereco() {
-//         return endereco;
-//     }
-
-//     public void setEndereco(Endereco endereco) {
-//         this.endereco = endereco;
-//     }
 
 // }

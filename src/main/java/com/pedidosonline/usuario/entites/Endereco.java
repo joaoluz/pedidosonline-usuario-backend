@@ -12,6 +12,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
 
 @Entity
 @Table(name = "endereco", schema = "usuario")
@@ -39,71 +47,5 @@ public class Endereco {
 
     @ManyToMany(mappedBy = "enderecos", fetch = FetchType.EAGER)
     private List<Usuario> usuarios;
-
-
-    public Endereco() {
-
-    }
-
-    public Endereco(Integer idEndereco, String logradouro, String cep, String bairro, String complemento, String numero) {
-
-        this.idEndereco = idEndereco;
-        this.logradouro = logradouro;
-        this.cep = cep;
-        this.bairro = bairro;
-        this.complemento = complemento;
-        this.numero = numero;
-
-    }
-
-    public Integer getIdEndereco() {
-        return idEndereco;
-    }
-    public void setIdEndereco(Integer idEndereco) {
-        this.idEndereco = idEndereco;
-    }
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
 
 }

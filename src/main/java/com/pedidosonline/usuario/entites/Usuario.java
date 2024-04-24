@@ -24,13 +24,18 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+
 
 @Entity
 @Table(name = "usuario", schema = "usuario")
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,9 +85,6 @@ public class Usuario implements Serializable {
                 inverseJoinColumns = @JoinColumn(name = "id_endereco"))
     private List<Endereco> enderecos;
 
-    public Usuario() {
-    
-    }
     
     public Usuario(Integer idUsuario, String noUsuario, String email, String senha, String dtAniversario, Integer nrDdd, Integer nrTelefone, String nrCpf) {
 
@@ -97,78 +99,5 @@ public class Usuario implements Serializable {
         this.nrTelefone = nrTelefone;
         this.nrCpf = nrCpf;
     }
-
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getNoUsuario() {
-        return noUsuario;
-    }
-
-    public void setNoUsuario(String noUsuario) {
-        this.noUsuario = noUsuario;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public LocalDate getDtAniversario() {
-        return dtAniversario;
-    }
-
-    public void setDtAniversario(LocalDate dtAniversario) {
-        this.dtAniversario = dtAniversario;
-    }
-
-    public Integer getNrDdd() {
-        return nrDdd;
-    }
-
-    public void setNrDdd(Integer nrDdd) {
-        this.nrDdd = nrDdd;
-    }
-
-    public Integer getNrTelefone() {
-        return nrTelefone;
-    }
-
-    public void setNrTelefone(Integer nrTelefone) {
-        this.nrTelefone = nrTelefone;
-    }
-
-    public String getNrCpf() {
-        return nrCpf;
-    }
-
-    public void setNrCpf(String nrCpf) {
-        this.nrCpf = nrCpf;
-    }
-    
-    public List<Endereco> getEnderecos() {
-        return enderecos;
-    }
-
-    public void setEnderecos(List<Endereco> list) {
-        this.enderecos = list;
-    }
-
 
 } 
