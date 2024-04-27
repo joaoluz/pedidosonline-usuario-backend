@@ -2,7 +2,6 @@ package com.pedidosonline.usuario.entites;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
@@ -24,11 +23,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 
 
 @Entity
@@ -86,18 +87,5 @@ public class Usuario implements Serializable {
     private List<Endereco> enderecos;
 
     
-    public Usuario(Integer idUsuario, String noUsuario, String email, String senha, String dtAniversario, Integer nrDdd, Integer nrTelefone, String nrCpf) {
-
-        DateTimeFormatter dtAniversarioFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        
-        this.idUsuario = idUsuario;
-        this.noUsuario = noUsuario;
-        this.email = email;
-        this.senha = senha;
-        this.dtAniversario = LocalDate.parse(dtAniversario, dtAniversarioFormatter);
-        this.nrDdd = nrDdd;
-        this.nrTelefone = nrTelefone;
-        this.nrCpf = nrCpf;
-    }
 
 } 
